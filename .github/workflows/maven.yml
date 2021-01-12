@@ -1,0 +1,75 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on: [push, pull_request]
+
+jobs:
+    compile:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                java: [ 11 ]
+
+        name: Java ${{ matrix.java }} compile
+
+        steps:
+            - uses: actions/checkout@v1
+            - name: Setup java ${{ matrix.java }}
+              uses: actions/setup-java@v1
+              with:
+                  java-version: ${{ matrix.java }}
+            - run: mvn clean compile
+
+    test:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                java: [ 11 ]
+
+        name: Java ${{ matrix.java }} test
+
+        steps:
+            - uses: actions/checkout@v1
+            - name: Setup java ${{ matrix.java }}
+              uses: actions/setup-java@v1
+              with:
+                  java-version: ${{ matrix.java }}
+            - run: mvn clean test
+
+    verify:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                java: [ 11 ]
+
+        name: Java ${{ matrix.java }} integration test
+
+        steps:
+            - uses: actions/checkout@v1
+            - name: Setup java ${{ matrix.java }}
+              uses: actions/setup-java@v1
+              with:
+                  java-version: ${{ matrix.java }}
+            - run: mvn clean test-compile failsafe:integration-test
+
+    build:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                java: [ 11 ]
+
+        name: Build artifact
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup java ${{ matrix.java }}
+              uses: actions/setup-java@v1
+              with:
+                  java-version: ${{ matrix.java }}
+            - run: mvn clean package -Dmaven.test.skip=true
