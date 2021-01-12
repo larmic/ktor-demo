@@ -24,14 +24,14 @@ jobs:
               with:
                   java-version: ${{ matrix.java }}
 
-            - name: Compile java ${{ matrix.java }}
+            - name: Compiling
               run: mvn compile
 
-            - name: Test java ${{ matrix.java }}
+            - name: Testing
               run: mvn test
 
-            - name: Verify java ${{ matrix.java }}
+            - name: Integration testing
               run: mvn test-compile failsafe:integration-test
 
-            - name: Build application
+            - name: Building
               run: mvn clean package -Dmaven.test.skip=true
