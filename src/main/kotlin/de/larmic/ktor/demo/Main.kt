@@ -1,23 +1,27 @@
 package de.larmic.ktor.demo
 
 import io.ktor.application.*
+import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import mu.KotlinLogging
-
-private val logger = KotlinLogging.logger {}
+import io.ktor.server.cio.CIO
+import org.slf4j.event.Level
 
 fun main() {
-    val server = embeddedServer(Netty, 8080) {
-        routing {
-            get("/") {
-                logger.info { "localhost:8080/ is called!" }
-                call.respondText("THIS IS KTOR!", ContentType.Text.Html)
-            }
+    embeddedServer(CIO, port = 8080, module = Application::mainModule).start(wait = true)
+}
+
+fun Application.mainModule() {
+    install(CallLogging) {
+        level = Level.DEBUG
+    }
+
+    routing {
+        get("/api") {
+            //call.application.environment.log.info("Hello from /api")
+            call.respondText("THIS IS KTOR!", ContentType.Text.Html)
         }
     }
-    server.start(wait = true)
 }

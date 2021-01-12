@@ -29,8 +29,7 @@
         <ktor.version>1.5.0</ktor.version>
 
         <!-- logging -->
-        <kotlin-logging-jvm.version>2.0.3</kotlin-logging-jvm.version>
-        <slf4j-simple.version>1.7.30</slf4j-simple.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
 
         <!-- testing -->
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
@@ -50,20 +49,15 @@
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>
-            <artifactId>ktor-server-netty</artifactId>
+            <artifactId>ktor-server-cio</artifactId>
             <version>${ktor.version}</version>
         </dependency>
 
         <!-- logging -->
         <dependency>
-            <groupId>io.github.microutils</groupId>
-            <artifactId>kotlin-logging-jvm</artifactId>
-            <version>${kotlin-logging-jvm.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j-simple.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
         </dependency>
 
         <!-- testing -->
