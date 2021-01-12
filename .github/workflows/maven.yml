@@ -25,13 +25,13 @@ jobs:
                   java-version: ${{ matrix.java }}
 
             - name: Compile java ${{ matrix.java }}
-              run: mvn clean compile
+              run: mvn compile
 
             - name: Test java ${{ matrix.java }}
-              run: mvn clean test
+              run: mvn test
 
             - name: Verify java ${{ matrix.java }}
-              run: mvn clean test-compile failsafe:integration-test
+              run: mvn test-compile failsafe:integration-test
 
             - name: Build application
               run: mvn clean package -Dmaven.test.skip=true
