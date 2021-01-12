@@ -6,23 +6,25 @@ name: Java CI with Maven
 on: [push, pull_request]
 
 jobs:
-    compile:
+    build:
         runs-on: ubuntu-latest
 
         strategy:
             matrix:
                 java: [ 11 ]
 
-        name: Java ${{ matrix.java }} compile
+        name: Java ${{ matrix.java }} full build
 
         steps:
             - name: Check out code
-              uses: actions/checkout@v1
+              uses: actions/checkout@v2
 
             - name: Setup java ${{ matrix.java }}
               uses: actions/setup-java@v1
               with:
                   java-version: ${{ matrix.java }}
+
+            - name: Compile java ${{ matrix.java }}
               run: mvn clean compile
 
             - name: Test java ${{ matrix.java }}
