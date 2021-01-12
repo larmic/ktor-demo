@@ -1,2 +1,8 @@
 # ktor-demo
-Simple ktor demo using maven
+
+TODO:
+* add github actions
+* add simple unit test
+* add rest example
+* try to use graalvm native
+* update README.md
