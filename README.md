@@ -18,13 +18,14 @@ Simple ktor example
 * Java 11
 * Maven >= 3.2.1 (Kotlin comes as maven dependency)
 
-#### Clone repository and build project
+## Clone repository and build project
 
 ```ssh
 $ git clone https://github.com/larmic/ktor-demo
 $ mvn clean verify
 ```
-#### Local testing
+
+## Local testing
 
 ```ssh
 # build application
