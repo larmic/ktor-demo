@@ -27,11 +27,11 @@ internal class MainKtIT {
                 assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
                 assertThat(response.content).isEqualTo(
                     """
-                    {
+                    [ {
                       "id" : 1,
                       "name" : "initial project setup",
                       "status" : "DONE"
-                    }
+                    } ]
                 """.trimIndent()
                 )
             }

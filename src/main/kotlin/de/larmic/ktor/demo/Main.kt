@@ -41,7 +41,7 @@ fun Application.mainModule() {
             call.respondText("THIS IS KTOR!", ContentType.Text.Html)
         }
         get("/tasks") {
-            call.respond(task)
+            call.respond(listOf(task))
         }
         get("/tasks/{id}") {
             if (call.parameters["id"] == "1") {
