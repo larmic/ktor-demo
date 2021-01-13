@@ -18,7 +18,9 @@ import org.slf4j.event.Level
 private val task = Task(1, "initial project setup", TaskStatus.DONE)
 
 fun main() {
-    embeddedServer(CIO, port = 8080, module = Application::mainModule).start(wait = true)
+    embeddedServer(
+        CIO, port = 8080, module = Application::mainModule
+    ).start(wait = true)
 }
 
 fun Application.mainModule() {
