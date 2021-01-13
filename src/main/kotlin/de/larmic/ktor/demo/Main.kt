@@ -1,27 +1,56 @@
 package de.larmic.ktor.demo
 
+import com.fasterxml.jackson.core.util.DefaultIndenter
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
+import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
+import io.ktor.jackson.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.server.cio.*
 import io.ktor.server.engine.*
-import io.ktor.server.cio.CIO
 import org.slf4j.event.Level
+
+data class Task(val id: Int, val name: String, val status: TaskStatus)
+enum class TaskStatus { OPEN, IN_PROGRESS, DONE }
+
+val task = Task(1, "initial project setup", TaskStatus.DONE)
 
 fun main() {
     embeddedServer(CIO, port = 8080, module = Application::mainModule).start(wait = true)
 }
 
 fun Application.mainModule() {
+    install(ContentNegotiation) {
+        jackson {
+            configure(SerializationFeature.INDENT_OUTPUT, true)
+            setDefaultPrettyPrinter(DefaultPrettyPrinter().apply {
+                indentArraysWith(DefaultPrettyPrinter.FixedSpaceIndenter.instance)
+                indentObjectsWith(DefaultIndenter("  ", "\n"))
+            })
+        }
+    }
     install(CallLogging) {
         level = Level.DEBUG
     }
 
     routing {
-        get("/api") {
-            //call.application.environment.log.info("Hello from /api")
+        get("/") {
+            //call.application.environment.log.info("Hello from /")
             call.respondText("THIS IS KTOR!", ContentType.Text.Html)
+        }
+        get("/tasks") {
+            call.respond(task)
+        }
+        get("/tasks/{id}") {
+            if (call.parameters["id"] == "1") {
+                call.respond(task)
+            } else {
+                call.respond(HttpStatusCode.NotFound)
+            }
         }
     }
 }
+

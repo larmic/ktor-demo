@@ -42,6 +42,7 @@
             <version>${kotlin.version}</version>
         </dependency>
 
+        <!-- ktor -->
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-core</artifactId>
@@ -50,6 +51,11 @@
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-cio</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-jackson</artifactId>
             <version>${ktor.version}</version>
         </dependency>
 
