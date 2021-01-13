@@ -32,7 +32,11 @@
         <logback-classic.version>1.2.3</logback-classic.version>
 
         <!-- testing -->
+        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M4</maven-failsafe-plugin.version>
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
+        <assertk-jvm.version>0.23</assertk-jvm.version>
     </properties>
 
     <dependencies>
@@ -82,7 +86,7 @@
         <dependency>
             <groupId>com.willowtreeapps.assertk</groupId>
             <artifactId>assertk-jvm</artifactId>
-            <version>0.23</version>
+            <version>${assertk-jvm.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -136,6 +140,84 @@
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- unit testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+
+                    <!-- required when calling integration tests from IDEA -->
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>src/test-integration/resources</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
+            </plugin>
+
+            <!-- integration testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
+                <executions>
+                    <!--
+                        Invokes both the test-integration and the verify goals of the
+                        Failsafe Maven plugin
+                    -->
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- enable support of test source folder src/test-integration/kotlin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+                <executions>
+                    <!-- Add a new source directory to our build -->
+                    <execution>
+                        <id>add-test-integration-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Add the source directory of our integration tests -->
+                            <sources>
+                                <source>src/test-integration/kotlin</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <!-- Add a new resource directory to our build -->
+                    <execution>
+                        <id>add-test-integration-resources</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Configures the resource directory of our integration tests -->
+                            <resources>
+                                <!--
+                                    Add the resources directory of our integration tests.
+                                    Files with same names from the test or main folder will be overridden!
+                                -->
+                                <resource>
+                                    <filtering>true</filtering>
+                                    <directory>src/test-integration/resources</directory>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>

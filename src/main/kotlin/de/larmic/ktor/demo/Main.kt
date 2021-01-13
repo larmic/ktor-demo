@@ -3,6 +3,8 @@ package de.larmic.ktor.demo
 import com.fasterxml.jackson.core.util.DefaultIndenter
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
 import com.fasterxml.jackson.databind.SerializationFeature
+import de.larmic.ktor.demo.model.Task
+import de.larmic.ktor.demo.model.TaskStatus
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -13,10 +15,7 @@ import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import org.slf4j.event.Level
 
-data class Task(val id: Int, val name: String, val status: TaskStatus)
-enum class TaskStatus { OPEN, IN_PROGRESS, DONE }
-
-val task = Task(1, "initial project setup", TaskStatus.DONE)
+private val task = Task(1, "initial project setup", TaskStatus.DONE)
 
 fun main() {
     embeddedServer(CIO, port = 8080, module = Application::mainModule).start(wait = true)

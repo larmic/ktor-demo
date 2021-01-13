@@ -8,7 +8,7 @@ import io.ktor.http.*
 import io.ktor.server.testing.*
 import org.junit.jupiter.api.Test
 
-internal class MainKtTest {
+internal class MainKtIT {
 
     @Test
     internal fun `get root`() {
