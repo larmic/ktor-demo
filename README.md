@@ -3,7 +3,7 @@
 ![Java CI with Maven](https://github.com/larmic/ktor-demo/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Simple ktor example
+Simple ktor jackson example.
 
 ## Used technologies
 
