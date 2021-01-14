@@ -19,7 +19,9 @@ private val task = Task(1, "initial project setup", TaskStatus.DONE)
 
 fun main() {
     embeddedServer(
-        CIO, port = 8080, module = Application::mainModule
+        factory = CIO,
+        port = 8080,
+        module = Application::mainModule
     ).start(wait = true)
 }
 
