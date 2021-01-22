@@ -11,6 +11,7 @@ Simple ktor jackson example.
 * Kotlin 1.4.21-2
 * JUnit 5.7.0
 * assertk 0.23
+* Docker
 * GitHub Actions (CI)
 
 ## Requirements
