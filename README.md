@@ -18,22 +18,39 @@ Simple ktor jackson example.
 * Java 11
 * Maven >= 3.2.1 (Kotlin comes as maven dependency)
 
-## Clone repository and build project
+## Clone repository and build project with tests
 
 ```ssh
 $ git clone https://github.com/larmic/ktor-demo
 $ mvn clean verify
 ```
 
-## Local testing
+### Fat-Jar
 
 ```ssh
 # build application
 $ mvn clean package -DskipTests
 
 # start application
-$ java -jar target/ktor-*-with-dependencies.jar
+$ java -jar target/ktor-*-with-dependencies.jar 
+```
 
+### Docker in JVM mode
+
+```ssh
+# build application
+$ mvn clean package -DskipTests
+
+# build docker image
+$ docker build -t larmic/ktor-demo-jvm -f src/main/docker/Dockerfile.jvm .
+
+# start application
+$ docker run -i --rm -p 8080:8080 larmic/ktor-demo-jvm
+```
+
+## Local testing
+
+```ssh
 # HTTP request examples
 # Get root
 $ curl --request GET http://localhost:8080/
